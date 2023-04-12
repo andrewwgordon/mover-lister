@@ -10,15 +10,15 @@ class Container(containers.DeclarativeContainer):
 
     csv_finder = providers.Singleton(
         finders.CsvMovieFinder,
-        movie_factory = movie.provider,
-        path = config.finder.csv.path,
-        delimiter = config.finder.csv.delimiter
+        movie_factory=movie.provider,
+        path=config.finder.csv.path,
+        delimiter=config.finder.csv.delimiter
     )
 
     sqlite_finder = providers.Singleton(
         finders.SqliteMovieFinder,
-        movie_factory = movie.provider,
-        path = config.finder.sqlite.path
+        movie_factory=movie.provider,
+        path=config.finder.sqlite.path
     )
     finder = providers.Selector(
         config.finder.type,
@@ -26,8 +26,7 @@ class Container(containers.DeclarativeContainer):
         sqlite=sqlite_finder
     )
 
-
     lister = providers.Factory(
         listers.MovieLister,
-        movie_finder = sqlite_finder
+        movie_finder=sqlite_finder
     )
